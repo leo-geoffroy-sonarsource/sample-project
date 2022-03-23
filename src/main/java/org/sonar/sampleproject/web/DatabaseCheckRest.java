@@ -19,7 +19,7 @@ public class DatabaseCheckRest {
     this.dataSource = dataSource;
   }
 
-  @GetMapping("/check-database")
+  @GetMapping(value = "/check-database", produces = { "application/json" })
   @ResponseBody
   public ResponseEntity<ConnectionStatus> check() {
     try {

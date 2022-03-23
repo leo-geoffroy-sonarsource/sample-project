@@ -14,16 +14,18 @@ class DatabaseCheckRestTest {
   void testCheckDatabaseEndpointIsOKWhenConnectionIsUp(){
     DataSource mockDataSource = Mockito.mock(DataSource.class);
     DatabaseCheckRest subject = new DatabaseCheckRest(mockDataSource);
-    ResponseEntity<String> responseEntity = subject.check();
+    ResponseEntity<DatabaseCheckRest.ConnectionStatus> responseEntity = subject.check();
     Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    Assertions.assertThat(responseEntity.getBody().getStatus()).isEqualTo(DatabaseStatusEnum.OK);
   }
 
   @Test
   void testCheckDatabaseEndpointIsNOKWhenConnectionDown() throws SQLException {
     DataSource mockDataSource = Mockito.mock(DataSource.class);
-    Mockito.doThrow(new SQLException("Cannot connect")).when(mockDataSource).getConnection();
+    Mockito.doThrow(new RuntimeException("Cannot connect")).when(mockDataSource).getConnection();
     DatabaseCheckRest subject = new DatabaseCheckRest(mockDataSource);
-    ResponseEntity<String> responseEntity = subject.check();
+    ResponseEntity<DatabaseCheckRest.ConnectionStatus> responseEntity = subject.check();
     Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    Assertions.assertThat(responseEntity.getBody().getStatus()).isEqualTo(DatabaseStatusEnum.KO);
   }
 }

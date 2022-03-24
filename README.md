@@ -12,3 +12,5 @@ You can also run the application by providing environment variables:
 - DATABASE_URL = jdbc:postgresql://localhost:5432/public
 - DATABASE_USERNAME=user
 - DATABASE_PASSWORD=password
+
+The application is accessible through the URL http://localhost:8080/check-database

@@ -2,7 +2,7 @@
 
 Build the application: `./gradlew build`
 
-Test the application: `./gradlew test` 
+Test the application: `./gradlew test` (success, exit code: 0; error, exit code > 0)
 
 # Run
 

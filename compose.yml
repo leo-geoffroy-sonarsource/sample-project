@@ -4,9 +4,9 @@ services:
     container_name: javaApp
     build:
       context: .
-      dockerfile: ./Dockerfiles/java/Dockerfile
+      dockerfile: Dockerfile
     environment:
-      - DATABASE_URL=jdbc:postgresql://postgres:5432/public
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       - DATABASE_USERNAME=${POSTGRES_USER}
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
     ports: 
